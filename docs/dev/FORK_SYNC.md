@@ -37,6 +37,25 @@ In `boykopovar/AnyPS5` repository settings, add a webhook pointing to `https://<
 
 The 15-minute schedule remains active as a fallback if the webhook path is down.
 
+## Self-contained poller
+
+`tools/poll_and_sync.py` needs no access to upstream repository settings. It polls the GitHub commits API for upstream `main`, and when the SHA differs from `fork/LAST_SYNC_UPSTREAM`, runs `tools/sync_upstream.ps1 -Push`. Run it on any machine with git, Python 3 and a configured GitHub credential:
+
+```sh
+set SYNC_WORKDIR=C:\temp\AnyPS5-push
+set SYNC_POLL_SECONDS=60
+python tools/poll_and_sync.py
+```
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `UPSTREAM_REPO` | `boykopovar/AnyPS5` | Repository to watch. |
+| `UPSTREAM_BRANCH` | `main` | Branch to watch. |
+| `SYNC_POLL_SECONDS` | `60` | Poll interval in seconds. |
+| `SYNC_WORKDIR` | current directory | Fork checkout. |
+| `SYNC_SCRIPT` | `tools/sync_upstream.ps1` | Sync script path. |
+| `SYNC_STATE_FILE` | `<workdir>/fork/LAST_SYNC_UPSTREAM` | Last mirrored SHA file. |
+
 ## Manual sync
 
 From a checkout of this fork on Windows:
