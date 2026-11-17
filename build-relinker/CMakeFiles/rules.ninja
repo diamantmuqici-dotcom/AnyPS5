@@ -3613,7 +3613,7 @@ rule CXX_EXECUTABLE_LINKER__reloc_table_bounds_tests_Release
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\diama\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\diama\Downloads\AnyPS5-main\AnyPS5-main -BC:\Users\diama\Downloads\AnyPS5-main\AnyPS5-main\build-relinker
+  command = C:\Users\diama\AppData\Local\Microsoft\WinGet\Packages\BrechtSanders.WinLibs.POSIX.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\mingw64\bin\cmake.exe --regenerate-during-build -SC:\temp\AnyPS5-push -BC:\temp\AnyPS5-push\build-relinker
   description = Re-running CMake...
   generator = 1
 
