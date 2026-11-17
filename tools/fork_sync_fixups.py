@@ -3,7 +3,7 @@ from pathlib import Path
 FORK_NOTE = (
     "> **Fork note:** This repository mirrors AnyPS5 for the "
     "`diamantmuqici-dotcom` account. It tracks upstream `boykopovar/AnyPS5` "
-    "and includes a WinLibs GCC 15.2.0 relinker-only build under "
+    "and includes a WinLibs GCC 16.2.0 relinker-only build under "
     "`build-relinker/` (Windows x86-64, `relinker.exe`). Title compatibility "
     "depends on the system PRX libraries implemented upstream; this fork does "
     "not add proprietary firmware, keys, or copyrighted binaries."
