@@ -1,0 +1,52 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [upstream-push]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: anyps5-upstream-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.SYNC_TOKEN || github.token }}
+
+      - name: Mirror upstream into fork
+        run: |
+          set -euo pipefail
+          git config user.name "diamantmuqici-dotcom"
+          git config user.email "diamantmuqici-dotcom@users.noreply.github.com"
+          git remote add upstream https://github.com/boykopovar/AnyPS5.git 2>/dev/null || git remote set-url upstream https://github.com/boykopovar/AnyPS5.git
+          git fetch upstream main --no-tags --quiet
+          if git merge-base --is-ancestor upstream/main HEAD; then
+            echo "Already at $(git rev-parse --short upstream/main)"
+            exit 0
+          fi
+          upstream_sha=$(git rev-parse upstream/main)
+          if ! git merge --no-commit --no-ff -X theirs upstream/main; then
+            git diff --name-only --diff-filter=U > unresolved.txt
+            while IFS= read -r path; do
+              git checkout --theirs -- "$path" 2>/dev/null || git rm -f -- "$path" || true
+              git add -- "$path" 2>/dev/null || true
+            done < unresolved.txt
+            rm -f unresolved.txt
+          fi
+          python3 tools/fork_sync_fixups.py
+          mkdir -p fork
+          printf '%s\n' "$upstream_sha" > fork/LAST_SYNC_UPSTREAM
+          git add -A
+          git -c core.safecrlf=false commit -m "sync: mirror upstream AnyPS5 at $upstream_sha"
+          git push origin HEAD:main

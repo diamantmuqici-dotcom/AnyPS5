@@ -1,5 +1,5 @@
-> **Fork note:** This repository mirrors AnyPS5 for the `diamantmuqici-dotcom` account. It tracks upstream `boykopovar/AnyPS5` and includes a WinLibs GCC 15.2.0 relinker-only build under `build-relinker/` (Windows x86-64, `relinker.exe`). Title compatibility depends on the system PRX libraries implemented upstream; this fork does not add proprietary firmware, keys, or copyrighted binaries.
 
+> **Fork note:** This repository mirrors AnyPS5 for the `diamantmuqici-dotcom` account. It tracks upstream `boykopovar/AnyPS5` and includes a WinLibs GCC 15.2.0 relinker-only build under `build-relinker/` (Windows x86-64, `relinker.exe`). Title compatibility depends on the system PRX libraries implemented upstream; this fork does not add proprietary firmware, keys, or copyrighted binaries.
 **English** | [Português (Brasil)](docs/user/README.pt-BR.md) | [Español](docs/user/README.es.md) | [Català](docs/user/README.ca.md) | [Italiano](docs/user/README.it.md) | [简体中文](docs/user/README.zh-CN.md) | [Русский](docs/user/README.ru.md) | [Bahasa Indonesia](docs/user/README.id.md) | [Polski](docs/user/README.pl.md) | [日本語](docs/user/README.ja.md)
 
 # About
