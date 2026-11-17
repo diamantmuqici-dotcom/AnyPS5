@@ -125,6 +125,13 @@ cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc -
 
 The documentation runs the Python tools as `python3`. With the python.org installer for Windows, which provides `python.exe` and the `py` launcher but no `python3.exe`, `python3` resolves to the Microsoft Store alias in `WindowsApps`, which prints `Python was not found` and exits with code 9009 (49 in Git Bash). Installs that provide `python3.exe`, such as the Python Install Manager, are not affected. In that case run these commands with `python` or `py -3`, for example `py -3 tools/check_conventions.py --base origin/main`.
 
+If Ninja fails with `manifest 'build.ninja' still dirty after 100 tries, perhaps system time is not set`, source files have modification times ahead of the system clock, typically from extracting an archive whose timestamps were preserved in a different time zone. Reset the timestamps of the checkout to the current time and configure in a new build directory:
+
+```powershell
+$now = Get-Date
+Get-ChildItem -LiteralPath <checkout> -Recurse -Force -File | ForEach-Object { $_.LastWriteTime = $now; $_.CreationTime = $now }
+```
+
 If the build stops with `fatal error: opening dependency file ...\*.cpp.obj.d: No such file or directory` for a few sources with long names, the path of an object or dependency file under `build` is at or near the 260-character Windows limit. A checkout whose path was 92 characters failed this way with `LongPathsEnabled` set to 1 in the registry; the same tree at `C:\a5` built. Clone the repository to a short path such as `C:\a5` and configure in a new build directory: a CMake build tree stores absolute paths, so moving an existing `build` directory does not help.
 
 After `cmake --build build --target libs --parallel` succeeds, copy the toolchain's runtime DLLs beside the patched libraries:

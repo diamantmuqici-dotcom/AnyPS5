@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/diama/Downloads/AnyPS5-main/AnyPS5-main/build-relinker/cmake_install.cmake",
+		"C:/Users/diama/Downloads/AnyPS5-main/AnyPS5-main/build-relinker/core/relinker/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
