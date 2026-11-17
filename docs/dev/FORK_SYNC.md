@@ -1,5 +1,13 @@
 # Fork sync
 
+## Bundled build output
+
+`build-relinker/` is a WinLibs MinGW-W64 GCC 16.2.0 (UCRT, POSIX, SEH) relinker-only build produced on Windows x86-64. `relinker.exe` is self-contained: its only imports are `KERNEL32.dll` and the OS-provided `api-ms-win-crt-*` set, so no MinGW runtime DLLs are required to run it.
+
+CMake records absolute paths in generated files (`CMakeCache.txt`, `build.ninja`, `rules.ninja`, `WindowsManifest.rc`, CTest files and logs). Those paths are specific to the machine that produced this tree. Do not reuse `build-relinker/` as a build directory on another machine — reconfigure from source instead. The prebuilt `relinker.exe` itself is portable across Windows 10/11 x86-64.
+
+A tagged exe release with source, license and hashes is published under GitHub Releases (`fork-relinker-*`).
+
 This fork mirrors `boykopovar/AnyPS5`. Upstream is the source of truth for every tracked source file. Files that exist only in this fork (`build-relinker/`, `fork/`, `docs/dev/FORK_SYNC.md`, `tools/fork_sync_fixups.py`, `tools/sync_upstream.ps1`, `tools/webhook_upstream_sync.py`, `.github/workflows/sync-upstream.yml`) survive every sync.
 
 ## Automatic sync (GitHub Actions)
